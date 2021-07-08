@@ -26,6 +26,7 @@ namespace Team_1_E_commerce
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddRazorPages();
 
             services.AddDbContext<Team_1_E_commerceContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Team_1_E_commerceContext")));
@@ -50,12 +51,14 @@ namespace Team_1_E_commerce
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Products}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
