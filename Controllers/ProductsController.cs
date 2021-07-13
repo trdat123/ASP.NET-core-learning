@@ -27,9 +27,17 @@ namespace Team_1_E_commerce.Controllers
 
         // GET: Products
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Product.ToListAsync());
+            var prod = from m in _context.Product
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                prod = prod.Where(s => s.ModelName.Contains(searchString));
+            }
+
+            return View(await prod.ToListAsync());
         }
 
         // GET: Products/Details/5

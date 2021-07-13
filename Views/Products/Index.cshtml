@@ -69,6 +69,13 @@
     </a>
 </div>
 
+<form asp-controller="Products" asp-action="Index" method="get" class="form-inline md-form mr-auto mb-4 mt-1">
+    <p>
+        <input type="text" name="SearchString" placeholder="Search" class="form-control mr-sm-2" />
+        <button class="btn btn-primary" type="submit">Search</button>
+    </p>
+</form>
+
 @*<table class="table">
         <thead>
             <tr>

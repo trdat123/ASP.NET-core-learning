@@ -16,5 +16,7 @@ namespace Team_1_E_commerce.Data
         }
 
         public DbSet<Team_1_E_commerce.Models.Product> Product { get; set; }
+        public DbSet<Team_1_E_commerce.Models.Category> Category { get; set; }
+
     }
 }
