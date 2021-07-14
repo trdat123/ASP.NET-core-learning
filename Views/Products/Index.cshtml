@@ -129,12 +129,18 @@
                         <!-- Sale badge-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                         <!-- Product image-->
-                        <img class="card-img-top" src="@("~/image/"+@item.Image)" asp-append-version="true" />
+                        <div>
+                            <a href="@Url.Action("ProductDetail", "Products", new { id = item.Id }, null)">
+                                <img class="card-img-top" src="@Url.Content("~/image/"+item.Image)" asp-append-version="true" />
+                            </a>
+                        </div>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <h5 class="fw-bolder">@item.ModelName</h5>
+                                @Html.ActionLink(item.ModelName, "ProductDetail", "Products", new { id = item.Id }, null)                               
+                            </div>
+                            <div class="text-center">
                                 <!-- Product price-->
                                 @item.Price&nbsp;VNĐ
                             </div>
@@ -143,9 +149,6 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
                         </div>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </div>
                 </div>
             }

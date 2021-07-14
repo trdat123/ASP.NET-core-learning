@@ -40,6 +40,25 @@ namespace Team_1_E_commerce.Controllers
             return View(await prod.ToListAsync());
         }
 
+        // GET: Products/ProductDetail/5
+        [AllowAnonymous]
+        public async Task<IActionResult> ProductDetail(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var eachproduct = await _context.Product
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (eachproduct == null)
+            {
+                return NotFound();
+            }
+
+            return View(eachproduct);
+        }
+
         // GET: Products/Details/5
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
