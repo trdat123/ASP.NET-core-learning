@@ -15,8 +15,7 @@ namespace Team_1_E_commerce.Data
             Database.EnsureCreated();
         }
 
-        public DbSet<Team_1_E_commerce.Models.Product> Product { get; set; }
-        public DbSet<Team_1_E_commerce.Models.Category> Category { get; set; }
-
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }

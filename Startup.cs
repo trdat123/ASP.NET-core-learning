@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Team_1_E_commerce.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Team_1_E_commerce
 {
@@ -50,8 +51,8 @@ namespace Team_1_E_commerce
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
