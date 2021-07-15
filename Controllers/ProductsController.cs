@@ -37,7 +37,22 @@ namespace Team_1_E_commerce.Controllers
                 prod = prod.Where(s => s.ModelName.Contains(searchString));
             }
 
-            return View(await prod.ToListAsync());
+            return View(await prod.Include(c => c.Category).ToListAsync());
+        }
+
+        // GET: Products
+        [AllowAnonymous]
+        public async Task<IActionResult> IndexAd(string searchString)
+        {
+            var prod = from m in _context.Product
+                       select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                prod = prod.Where(s => s.ModelName.Contains(searchString));
+            }
+
+            return View(await prod.Include(c => c.Category).ToListAsync());
         }
 
         // GET: Products/ProductDetail/5
@@ -89,7 +104,7 @@ namespace Team_1_E_commerce.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ModelName,Image,ImageFile,Price,ModelType")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,ModelName,Image,ImageFile,Price,ModelType,CategoryId,Category")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -132,7 +147,7 @@ namespace Team_1_E_commerce.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ModelName,Image,Price,ModelType")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ModelName,Image,ImageFile,Price,ModelType")] Product product)
         {
             if (id != product.Id)
             {
@@ -143,6 +158,16 @@ namespace Team_1_E_commerce.Controllers
             {
                 try
                 {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
+                    string fileExtension = Path.GetExtension(product.ImageFile.FileName);
+                    product.Image = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
+                    string path = Path.Combine(wwwRootPath + "/image/" + product.Image);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await product.ImageFile.CopyToAsync(fileStream);
+                    }
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -151,10 +176,6 @@ namespace Team_1_E_commerce.Controllers
                     if (!ProductExists(product.Id))
                     {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -195,5 +216,6 @@ namespace Team_1_E_commerce.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+
     }
 }

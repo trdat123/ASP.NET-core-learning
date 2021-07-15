@@ -15,15 +15,29 @@ namespace Team_1_E_commerce.Models
         public int Id { get; set; }
 
         [DisplayName("Model Name")]
+        [Required]
         public string ModelName { get; set; }
         
         [DisplayName("Image Name")]
+        [Required]
         public string Image { get; set; }
 
         [NotMapped]
         [DisplayName("Image File")]
+        [Required]
         public IFormFile ImageFile { get; set; }
         public int Price { get; set; }
+        
+        [DisplayName("Version")]
+        [Required]
         public string ModelType { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
+
+        //Navigation Properties
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
     }
 }

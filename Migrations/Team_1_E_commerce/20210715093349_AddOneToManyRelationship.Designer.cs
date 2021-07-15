@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Team_1_E_commerce.Data;
 
 namespace Team_1_E_commerce.Migrations.Team_1_E_commerce
 {
     [DbContext(typeof(Team_1_E_commerceContext))]
-    partial class Team_1_E_commerceContextModelSnapshot : ModelSnapshot
+    [Migration("20210715093349_AddOneToManyRelationship")]
+    partial class AddOneToManyRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

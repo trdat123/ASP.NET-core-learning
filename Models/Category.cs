@@ -11,9 +11,12 @@ namespace Team_1_E_commerce.Models
     {
         [Key]
         public int CategoryId { get; set; }
+
         [Required]
         [DisplayName("Category Name")]
-
         public string CategoryName { get; set; }
+
+        //Navigation Properties
+        public List<Product> Products { get; set; }
     }
 }
