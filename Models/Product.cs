@@ -38,6 +38,7 @@ namespace Team_1_E_commerce.Models
         //Navigation Properties
         public int CategoryId { get; set; }
 
+        [Required]
         public Category Category { get; set; }
     }
 }
