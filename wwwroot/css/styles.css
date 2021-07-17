@@ -6335,6 +6335,16 @@ textarea.form-control-lg {
     transition: transform 0.6s ease-in-out;
 }
 
+.carousel-item1 {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-right: -100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: transform 0.6s ease-in-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .carousel-item {
         transition: none;
