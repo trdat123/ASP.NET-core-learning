@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Team_1_E_commerce.Data;
 
 namespace Team_1_E_commerce.Migrations.Team_1_E_commerce
 {
     [DbContext(typeof(Team_1_E_commerceContext))]
-    partial class Team_1_E_commerceContextModelSnapshot : ModelSnapshot
+    [Migration("20210717061945_AddManyToManyAndCart")]
+    partial class AddManyToManyAndCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,6 @@ namespace Team_1_E_commerce.Migrations.Team_1_E_commerce
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CartOwner")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

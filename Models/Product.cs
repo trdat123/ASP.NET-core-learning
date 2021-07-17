@@ -36,9 +36,13 @@ namespace Team_1_E_commerce.Models
         public int Quantity { get; set; }
 
         //Navigation Properties
+        [DisplayName("Category type")]
         public int CategoryId { get; set; }
 
         [Required]
         public Category Category { get; set; }
+
+        public virtual List<CartProduct> CartProducts { get; set; }
+
     }
 }

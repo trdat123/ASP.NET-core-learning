@@ -119,7 +119,12 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                            <div class="text-center">
+                                @using (Html.BeginForm("AddToCart", "CartProducts", new { id = item.Id }))
+                                {
+                                <input type="submit" value="Add to cart" class="btn btn-outline-success" />
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

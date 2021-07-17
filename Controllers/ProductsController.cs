@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Team_1_E_commerce.Areas.Identity.Data;
 using Team_1_E_commerce.Data;
 using Team_1_E_commerce.Models;
 
@@ -19,11 +21,15 @@ namespace Team_1_E_commerce.Controllers
     {
         private readonly Team_1_E_commerceContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductsController(Team_1_E_commerceContext context, IWebHostEnvironment hostEnvironment)
+        public ProductsController(Team_1_E_commerceContext context,
+            IWebHostEnvironment hostEnvironment,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
+            _userManager = userManager;
         }
 
         // GET: Products
@@ -42,7 +48,6 @@ namespace Team_1_E_commerce.Controllers
         }
 
         // GET: Products
-        [AllowAnonymous]
         public async Task<IActionResult> IndexAd(string searchString)
         {
             var prod = from m in _context.Product
@@ -105,7 +110,7 @@ namespace Team_1_E_commerce.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ModelName,Image,ImageFile,Price,ModelType,CategoryId,Category")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,ModelName,Image,ImageFile,Price,ModelType,CategoryId,Category,Quantity")] Product product)
         {
             if (product != null)
             {
@@ -148,7 +153,7 @@ namespace Team_1_E_commerce.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ModelName,Image,ImageFile,Price,ModelType,CategoryId,Category")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ModelName,Image,ImageFile,Price,ModelType,CategoryId,Category,Quantity")] Product product)
         {
             if (id != product.Id)
             {

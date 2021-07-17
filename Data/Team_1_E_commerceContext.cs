@@ -15,7 +15,23 @@ namespace Team_1_E_commerce.Data
             Database.EnsureCreated();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CartProduct>()
+                .HasOne(c => c.Cart)
+                .WithMany(cp => cp.CartProducts)
+                .HasForeignKey(ci => ci.CartId);
+            
+            modelBuilder.Entity<CartProduct>()
+                .HasOne(p => p.Product)
+                .WithMany(cp => cp.CartProducts)
+                .HasForeignKey(pi => pi.ProductId);
+        }
+
         public DbSet<Product> Product { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
+
     }
 }
