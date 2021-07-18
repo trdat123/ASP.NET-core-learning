@@ -37,98 +37,68 @@
     </div>
 </div>
 
-@*
-    <div class="d-flex justify-content-center">
-        <form asp-controller="Products" asp-action="Index" method="get" class="form-inline md-form mr-auto mt-3">
-            <p>
-                <input type="text" name="SearchString" placeholder="Search item" class="form-control mr-1" />
-                <button class="btn btn-primary" type="submit">Search</button>
-            </p>
-        </form>
-    </div>
-*@
-
-@*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModelName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModelType)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModelName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Image)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModelType)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-    0
-        </tbody>
-    </table>*@
-
-<section class="py-5">
+<section class="py-2">
     <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            @foreach (var item in Model)
+        <h2 style="text-align:center" class="py-1">Store Products</h2>
+        @for (int i = 1; i <= 5; i++)
+        {
+            @if (i == 1)
             {
-                <div class="col mb-3">
-                    <div class="card h-160">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <div>
-                            <a href="@Url.Action("ProductDetail", "Products", new { id = item.Id }, null)">
-                                <img class="card-img-top mt-3" src="@Url.Content("~/image/"+item.Image)" asp-append-version="true" />
-                            </a>
-                        </div>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                @Html.ActionLink(item.ModelName, "ProductDetail", "Products", new { id = item.Id }, null)
+                <h3 class="m-3">Apple IPhone Series</h3>
+            }
+            else if (i == 2)
+            {
+                <h3 class="m-3">Samsung Series</h3>
+            }
+            else if (i == 3)
+            {
+                <h3 class="m-3">Xiaomi Series</h3>
+            }
+            else if (i == 4)
+            {
+                <h3 class="m-3">Oppo Series</h3>
+            }
+            else if (i == 5)
+            {
+                <h3 class="m-3">Realme Series</h3>
+            }
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @foreach (var item in Model.Where(m => m.CategoryId == i))
+                {
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <!--<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>-->
+                            <!-- Product image-->
+                            <div>
+                                <a href="@Url.Action("ProductDetail", "Products", new { id = item.Id }, null)">
+                                    <img class="card-img-top mt-3" src="@Url.Content("~/image/" + item.Image)" asp-append-version="true" />
+                                </a>
                             </div>
-                            <div class="text-center">
-                                <!-- Product price-->
-                                @String.Format("{0:n0}", item.Price) VNĐ
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center text-dark fw-bold">
+                                    <!-- Product name-->
+                                    @Html.ActionLink(item.ModelName, "ProductDetail", "Products", new { id = item.Id }, null)
+                                </div>
+                                <div class="text-center">
+                                    <!-- Product price-->
+                                    @String.Format("{0:n0}", item.Price) VNĐ
+                                </div>
                             </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center">
-                                @using (Html.BeginForm("AddToCart", "CartProducts", new { id = item.Id }))
-                                {
-                                <input type="submit" value="Add to cart" class="btn btn-outline-success" />
-                                }
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    @using (Html.BeginForm("AddToCart", "CartProducts", new { id = item.Id }))
+                                    {
+                                        <input type="submit" value="Add to cart" class="btn btn-outline-success" />
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
     </div>
 </section>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using Team_1_E_commerce.Models;
 
 namespace Team_1_E_commerce.Controllers
 {
+    [Authorize]
     public class CartProductsController : Controller
     {
         private readonly Team_1_E_commerceContext _context;
@@ -23,7 +25,7 @@ namespace Team_1_E_commerce.Controllers
             _context = context;
             _userManager = userManager;
         }
-        // GET: CartProductsController
+        // GET: CartProducts
         public async Task<IActionResult> Index()
         {
             var cartProducts = from m in _context.CartProducts
@@ -54,25 +56,15 @@ namespace Team_1_E_commerce.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: CartProductsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CartProductsController/Delete/5
-        [HttpPost]
+        // POST: CartProducts/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var cartProduct = await _context.CartProducts.FindAsync(id);
+            _context.CartProducts.Remove(cartProduct);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
