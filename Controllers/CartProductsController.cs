@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,12 @@ namespace Team_1_E_commerce.Controllers
             _userManager = userManager;
         }
         // GET: CartProductsController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        // GET: CartProductsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            var cartProducts = from m in _context.CartProducts
+                       select m;
+            
+            return View(await cartProducts.Include(c => c.Cart).Include(p => p.Product).ToListAsync());
         }
 
         [HttpPost]
@@ -53,28 +51,7 @@ namespace Team_1_E_commerce.Controllers
             _context.CartProducts.Add(cartProduct);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Products");
-        }
-
-        // GET: CartProductsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CartProductsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: CartProductsController/Delete/5
