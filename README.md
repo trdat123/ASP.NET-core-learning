@@ -20,9 +20,9 @@ $ git clone https://github.com/trdat123/ASP.NET-core-learning.git
 
 ![image](https://user-images.githubusercontent.com/71772138/126356562-05f65bb4-b0f6-4935-97f3-62a78d0175ce.png)
 
-### Step 3. 
+You can run the app now. If it cause some error, follow the next step.
 
-Run the app. If it cause some error, follow the next step.
+### Step 3 (optional). 
 
 Go to `Tools > NuGet Pakage Manager > Pakage Manager Console` then run these 2 lines to add data to your local SQL database:
 
