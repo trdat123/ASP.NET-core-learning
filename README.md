@@ -4,6 +4,8 @@ Finished at: 18/7/2021.
 
 ## **Installation**:
 
+> This installation guide is for Visual Studio.
+
 ### Step 1. You need to install Visual Studio and these pakage:
 
 ![image](https://user-images.githubusercontent.com/71772138/126350505-fabaac4b-a938-4239-aacf-32f6b87fb882.png)
